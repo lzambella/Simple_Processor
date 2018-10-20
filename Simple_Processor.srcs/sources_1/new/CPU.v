@@ -28,7 +28,7 @@ module CPU(
     wire clk;
     
     always @ (posedge clk) begin
-    // Every clock cycle, read a new instructino from memory and feed into CU
+    // Every clock cycle, read a new instruction from memory and feed into CU
     end
     
 endmodule

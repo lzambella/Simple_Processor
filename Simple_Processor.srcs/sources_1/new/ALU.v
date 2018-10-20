@@ -4,13 +4,14 @@
 */
 
 module ALU(
-input [2:0] opcode,
-input [15:0] a,
-input [15:0] b,
-input cin,
-output reg [15:0] y,
-output reg cout);
-    always @ opcode begin    
+input wire clk,     // Clock input
+input [2:0] opcode, // ALU opcode independant of CPU Opcode
+input [15:0] a,     // Input a
+input [15:0] b,     // Input b
+input cin,          // Carry in
+output reg [15:0] y,// Output
+output reg cout);   // Carry out
+    always @ (posedge clk) begin    
         case (opcode)
             'b000: y = a + b; // Add inputs
             'b001: y = !(a); // Invert a
