@@ -42,7 +42,7 @@ input wire clk
     
     
     initial begin // Store some values in memory
-        Memory[0] = 'h0000;
+        Memory[0]  = 'h0005;
         Memory[16] = 'h0001;
         Memory[32] = 'h000A;
         Memory[48] = 'h0FFF;
