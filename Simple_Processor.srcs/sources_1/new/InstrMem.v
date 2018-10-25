@@ -21,22 +21,27 @@
 
 
 module InstrMem(
+
 output reg [15:0] instruction,  // Instruction Output
+input enable,                   // Memory enable
 input [11:0] MemAddr,           // Address input (Program counter)
 input clk
     );
     
      reg [15:0] Memory [255:0]; // 255 word length of 16 bits
      
-     always @ (posedge clk) begin
-        instruction <= Memory[MemAddr]; // Output the contents referred to by the address
+     always @ (enable) begin
+         if (enable) begin
+            instruction = Memory[MemAddr]; // Output the contents referred to by the address
+         end
      end
      
      
      initial begin  // Test instructions
-        Memory[16] = 'b001_0_000000000000; // Add with carry (addr location 0)
-        Memory[32] = 'b001_0_000000010000; // Add with carry (addr location 16)
-        Memory[48] = 'b001_0_000000100000; // Add with carry (addr location 16)
-        Memory[64] = 'b001_0_000000000000; // Add with carry (addr location 16)
+        Memory[0] = 'b011_0_000000000000;  // INCR Accumulator by one
+        Memory[1] = 'b011_0_000000010000;
+        Memory[2] = 'b011_0_000000100000; 
+        Memory[3] = 'b011_0_000000000000;
+        Memory[4] = 'b000_0_000000000000; // Invert accum 
      end
 endmodule

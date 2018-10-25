@@ -12,18 +12,16 @@ input cin,          // Carry in
 input enable,       // enable input
 output reg [15:0] y,// Output
 output reg cout);      
-    always @ (posedge enable) begin
+    always @ (posedge clk) begin
         if (enable) begin
             case (opcode)
-                'b000: y <= a + b;   // Add inputs
-                'b001: y <= ~b;        // Invert b
+                'b000: y <= a + b;   // Add inputs (AC and MD)
+                'b001: y <= ~a;      // Invert accumulator register (reg should be input a)
                 'b010: y <= a + 1;   // Increment the accumulator register by 1
-                'b011: y <= 0;       // zero the accumulator register?
-                'b100: y <= b;       // pass input b
+                'b011: y <= 0;       // Pass zero
+                'b100: y <= b;       // pass input b (MD)
                 default: y <= b;     // Unknown opcode then pass accumulator value
             endcase
-        end else begin
-            y <= b;     // pass accumulator if not enabled
         end
     end
 
