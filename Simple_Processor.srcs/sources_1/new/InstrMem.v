@@ -30,7 +30,7 @@ input clk
     
      reg [15:0] Memory [255:0]; // 255 word length of 16 bits
      
-     always @ (enable) begin
+     always @ (posedge clk) begin
          if (enable) begin
             instruction = Memory[MemAddr]; // Output the contents referred to by the address
          end
@@ -39,9 +39,12 @@ input clk
      
      initial begin  // Test instructions
         Memory[0] = 'b011_0_000000000000;  // INCR Accumulator by one
-        Memory[1] = 'b011_0_000000010000;
-        Memory[2] = 'b011_0_000000100000; 
-        Memory[3] = 'b011_0_000000000000;
-        Memory[4] = 'b000_0_000000000000; // Invert accum 
+        Memory[1] = 'b000_0_000000000000;  // invert
+        Memory[2] = 'b000_0_000000000000;  // invert
+        Memory[3] = 'b001_0_000000000010;  // add with carry
+        Memory[4] = 'b001_0_000000000000;  // add with carry
+        Memory[5] = 'b001_0_000000000001;  // add with carry
+        Memory[6] = 'b001_0_000000000010;  // add with carry
+        Memory[7] = 'b000_0_000000000000;  // add with carry
      end
 endmodule

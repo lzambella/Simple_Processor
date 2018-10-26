@@ -21,30 +21,33 @@
 
 
 module MU(
+input clk,                  // Clock        
 input [11:0] Addr,          // address of memory to store or write
 input [15:0] WriteData,     // memory data being written to address
-output reg [15:0] ReadData, // output data memory
+input enable,               // Enable
 input WD,                   // 1 if we are writing data, other wise output data at memory location
-input wire clk         
-    );
+output reg [15:0] ReadData  // output data memory 
+);
     
     reg [15:0] Memory [255:0]; // 255 word length of 16 bits
     
     /*Perform the memory operation*/
     always @ (posedge clk) begin
-        if (WD) begin   // Write data to memory
-            Memory[Addr] <= WriteData;
-        end
-        else begin  // Read data from memory
-             ReadData <= Memory[Addr]; 
+        if (enable) begin
+            if (WD) begin   // Write data to memory
+                Memory[Addr] <= WriteData;
+            end
+            else begin  // Read data from memory
+                 ReadData <= Memory[Addr]; 
+            end
         end
     end
     
     
     initial begin // Store some values in memory
-        Memory[0]  = 'h0005;
-        Memory[16] = 'h0001;
-        Memory[32] = 'h000A;
-        Memory[48] = 'h0FFF;
+        Memory[0] = 'h0010;
+        Memory[1] = 'h0001;
+        Memory[2] = 'h000A;
+        Memory[3] = 'h0FFF;
     end
 endmodule
