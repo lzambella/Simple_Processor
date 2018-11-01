@@ -1,0 +1,13 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../legacy.srcs/sources_1/new/ALU.v" \
+"../../../../legacy.srcs/sources_1/new/CU.v" \
+"../../../../legacy.srcs/sources_1/new/InstrMem.v" \
+"../../../../legacy.srcs/sources_1/new/MU.v" \
+"../../../../legacy.srcs/sources_1/new/CPU.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
